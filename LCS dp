@@ -1,0 +1,28 @@
+#include<stdio.h>
+int max(int a,int b){
+    if(a>b) return a;
+    return b;
+}
+int LCS(char* X,char* Y,int m,int n){
+    int L[m+1][n+1];
+
+    for(int i=0;i<m+1;i++){ L[i][0]=0;}
+    for(int j=0;j<n+1;j++){L[0][j]=0;}
+
+    for(int i=1;i<m+1;i++){
+        for(int j=1;j<n+1;j++){
+            if(X[i]==Y[j]){
+                L[i][j] = 1+L[i-1][j-1];
+            }else{
+                L[i][j] = max(L[i-1][j],L[i][j-1]);
+            }
+        }
+    }
+    return L[m][n];
+}
+
+int main(){
+    char n1[] = "ABCD";
+    char n2[] = "MAD";
+    printf("LCS: %d",LCS(n1,n2,4,3));
+}
